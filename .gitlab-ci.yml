@@ -1,0 +1,48 @@
+# Copyright 2020 - NanoSciTracker
+# Author: Luis G. Leon Vega <luis@luisleon.me>
+
+# Collect an image with Python 3.8
+image: python:3.8
+
+# Build the binaries
+build:
+  stage: build
+  before_script:
+    - mkdir build
+  script:
+    - pip install --no-deps --prefix ./build .
+
+  artifacts:
+    paths:
+      - build
+
+# Run tests using the module constructed before
+test:
+  stage: test
+  before_script:
+    - apt-get update
+    - apt-get -y install libgl1-mesa-glx
+    - pip install -e .
+    - cp -r build/* /usr/local/
+    - pip install pytest
+  script:
+    - pytest .
+
+# Deploy pages
+pages:
+  stage: deploy
+  before_script:
+    - apt-get update
+    - apt-get -y install libgl1-mesa-glx
+    - pip install -e .
+  script:
+    - cd docs
+    - make html
+    - cd ..
+    - mkdir public
+    - cp -r docs/build/html/* public
+  artifacts:
+    paths:
+    - public
+  only:
+    - master
