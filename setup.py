@@ -24,7 +24,7 @@ setuptools.setup(
     install_requires=[
           'numpy',
           'opencv-python',
-          'Sphinx'
+          'Sphinx',
           'rinohtype',
           'recommonmark'
     ],
