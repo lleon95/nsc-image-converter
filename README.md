@@ -17,7 +17,7 @@ You can install them by:
 sudo apt-get update
 sudo apt-get python3 python3-pip
 sudo apt-get -y install libgl1-mesa-glx
-pip3 install numpy opencv-python
+pip3 install .
 ```
 
 ## Usage
@@ -67,7 +67,7 @@ python3 -m pytest .
 ### Building the docs
 
 ```bash
-cd docs && make docs
+cd docs && make html
 ```
 
 ## MISC
